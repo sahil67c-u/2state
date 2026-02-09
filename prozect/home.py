@@ -1,10 +1,10 @@
 import streamlit as st
-import os  # <--- Path dhundne ke liye zaroori
+import os  # <--- Essential for finding the video file
 from streamlit_extras.let_it_rain import rain
 
 # 1. Page Config
 st.set_page_config(
-    page_title="For Gaurav ❤️",
+    page_title="For Chiku ❤️",
     page_icon="💌",
     layout="centered",
     initial_sidebar_state="collapsed"
@@ -73,7 +73,7 @@ st.write("---")
 
 # --- STAGE 0: Intro ---
 if st.session_state.stage == 0:
-    st.title("Hey Gaurav! 👋")
+    st.title("Hey Chiku!👋")
     
     # FIX: New Tenor Link (Waving Bear) - Will work 100%
     st.image("https://media.tenor.com/On7kvXhzml4AAAAj/loading-chud.gif", width=200)
@@ -113,11 +113,26 @@ elif st.session_state.stage == 2:
     st.title("YEAYYY! I KNEW IT! 🎉❤️")
     
     # --- MAGIC PATH FIX FOR VIDEO ---
-    # 1. Pata karo ki ye script kahan rakhi hai
+    # 1. Get the directory where home.py is located
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    # 2. Usi folder mein video file dhundo
+    # 2. Join it with the video filename
     video_path = os.path.join(current_dir, "vdo3.mp4") 
     
-    # 3. Check karo aur play karo
+    # 3. Check if file exists before playing
     if os.path.exists(video_path):
-        st.video(video_path, format="video
+        st.video(video_path, format="video/mp4", start_time=0)
+    else:
+        # Fallback if file is missing (Prevents app crash)
+        st.error(f"Video file not found at: {video_path}")
+        st.warning("Please check if vdo3.mp4 is uploaded to GitHub.")
+        # Backup GIF 
+        st.image("https://media.tenor.com/26BRv0ThflsHCqDrG/giphy.gif")
+    
+    st.markdown("<h3>Now go check the Gallery page! 👆</h3>", unsafe_allow_html=True)
+    
+    rain(
+        emoji="❤️",
+        font_size=54,
+        falling_speed=5,
+        animation_length="infinite",
+    )

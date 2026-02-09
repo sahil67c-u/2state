@@ -1,5 +1,4 @@
 import streamlit as st
-import time
 
 # 1. Page Config
 st.set_page_config(page_title="Love Coupons 🎟️", page_icon="🎁", layout="centered", initial_sidebar_state="collapsed")
@@ -44,18 +43,18 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# 3. TOP NAVIGATION (One Line)
+# 3. TOP NAVIGATION BAR (5 Icons - Matches Home)
 col1, col2, col3, col4, col5 = st.columns(5, gap="small")
 with col1:
-    if st.button("🏠", help="Home", use_container_width=True): st.switch_page("home.py")
+    if st.button("🏠", use_container_width=True): st.switch_page("home.py")
 with col2:
-    if st.button("📸", help="Gallery", use_container_width=True): st.switch_page("pages/1_Gallery.py")
+    if st.button("📸", use_container_width=True): st.switch_page("pages/1_Gallery.py")
 with col3:
-    if st.button("🧐", help="Quiz", use_container_width=True): st.switch_page("pages/2_Quiz.py")
+    if st.button("🧐", use_container_width=True): st.switch_page("pages/2_Quiz.py")
 with col4:
-    if st.button("🎟️", help="Coupons", use_container_width=True): st.switch_page("pages/3_Coupons.py")
+    if st.button("🎟️", use_container_width=True): st.switch_page("pages/3_Coupons.py")
 with col5:
-    if st.button("💌", help="Letters", use_container_width=True): st.switch_page("pages/4_Letter.py")
+    if st.button("💌", use_container_width=True): st.switch_page("pages/4_Letter.py")
 
 st.write("---")
 
@@ -64,12 +63,11 @@ st.write("---")
 st.title("🎁 Your Gift Coupons")
 st.markdown("### Rules: You can redeem these anytime! (Terms and Conditions apply 😜)")
 
-# Initialize Session State for Coupons
+# Initialize Session State
 if 'redeemed' not in st.session_state:
     st.session_state.redeemed = []
 
-# DATA: List of Coupons
-# You can change these texts to whatever you want!
+# COUPONS DATA
 coupons = [
     {"id": 1, "title": "🍕 One Free Pizza Date", "desc": "I pay, you eat. No questions asked."},
     {"id": 2, "title": "💆‍♂️ Head Massage", "desc": "Valid for 15 minutes of peace."},
@@ -82,7 +80,7 @@ for coupon in coupons:
     # Check if already redeemed
     is_redeemed = coupon['id'] in st.session_state.redeemed
     
-    # CSS Container for the card
+    # CSS Container
     st.markdown(f"""
     <div class="coupon-card">
         <h2>{coupon['title']}</h2>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine?</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffe6e6;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            text-align: center;
+        }
+        h1 {
+            color: #ff4d4d;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .buttons {
+            margin-top: 20px;
+            /* Ensure container has height for absolute positioning context if needed, 
+               but here we rely on body relative to viewport */
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 1.5rem;
+            margin: 10px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        #yesBtn {
+            background-color: #ff4d4d;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        #yesBtn:hover {
+            transform: scale(1.1);
+        }
+        #noBtn {
+            background-color: #fff;
+            color: #ff4d4d;
+            border: 2px solid #ff4d4d;
+            position: absolute; /* Essential for moving it freely */
+        }
+        .gif-container img {
+            width: 200px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gif-container">
+        <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2QzM3Z6cW93aW55eXJ6eXJ6eXJ6eXJ6eXJ6eXJ6eXJ6eSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1cfxvGOPVpf9g3y/giphy.gif" alt="Cute Bear">
+    </div>
+
+    <h1>Will you be my Valentine?</h1>
+
+    <div class="buttons">
+        <button id="yesBtn" onclick="acceptLove()">Yes</button>
+        <button id="noBtn" onmouseover="moveButton()" onclick="moveButton()">No</button>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const h1 = document.querySelector('h1');
+        const img = document.querySelector('img');
+
+        // Initial centering of the No button so it doesn't start in the corner
+        // We do this by not setting top/left in CSS, letting it flow naturally, 
+        // then once it moves, it goes absolute.
+        
+        function moveButton() {
+            // Get viewport dimensions
+            const maxWidth = window.innerWidth - noBtn.offsetWidth;
+            const maxHeight = window.innerHeight - noBtn.offsetHeight;
+
+            // Generate random coordinates
+            const randomX = Math.floor(Math.random() * maxWidth);
+            const randomY = Math.floor(Math.random() * maxHeight);
+
+            // Apply new position
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        }
+
+        function acceptLove() {
+            h1.innerHTML = "Yeayyy! I knew it! ❤️";
+            // Change to a happy celebration gif
+            img.src = "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2QzM3Z6cW93aW55eXJ6eXJ6eXJ6eXJ6eXJ6eXJ6eXJ6eSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/T86i6yDyOYz7J6v9Cy/giphy.gif"; 
+            
+            // Hide the buttons
+            noBtn.style.display = "none";
+            yesBtn.style.display = "none";
+            
+            // Change background
+            document.body.style.backgroundColor = "#ffcccc";
+        }
+    </script>
+
+</body>
+</html>

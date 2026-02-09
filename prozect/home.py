@@ -13,13 +13,14 @@ st.set_page_config(
 )
 
 # ---------------------------------------------------------
-# 2. PATH SETUP
+# 2. PATH SETUP (Images dhoondne ke liye)
 # ---------------------------------------------------------
+# Ye code current folder ka pata lagayega jahan home.py hai
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-# Images ka path set kiya (Video hata diya)
-img1_path = os.path.join(current_dir, "p9.jpg")
-img2_path = os.path.join(current_dir, "p7.jpg")
+# Direct file names (Kyunki sab same folder mein hai)
+img_p9_path = os.path.join(current_dir, "p9.jpg")
+img_p8_path = os.path.join(current_dir, "p8.jpg")
 
 # ---------------------------------------------------------
 # 3. CSS & STYLING
@@ -99,25 +100,25 @@ elif st.session_state.stage == 1:
             st.session_state.no_count += 1
             st.rerun()
 
-# --- STAGE 2: Success (IMAGES FIX) ---
+# --- STAGE 2: Success (NO VIDEO, ONLY IMAGES) ---
 elif st.session_state.stage == 2:
     st.title("YEAYYY! I KNEW IT! 🎉❤️")
+    st.markdown("### Look at us! 🥰")
     
-    # Image 1 (P9)
-    if os.path.exists(img1_path):
-        st.image(img1_path, use_container_width=True)
-    
-    # Thoda gap
-    st.write("") 
+    # Image 1: p9.jpg
+    if os.path.exists(img_p9_path):
+        st.image(img_p9_path, use_container_width=True)
+    else:
+        st.warning(f"Image not found: {img_p9_path}") # Debugging ke liye
 
-    # Image 2 (P7)
-    if os.path.exists(img2_path):
-        st.image(img2_path, use_container_width=True)
+    st.write("") # Gap
 
-    # Agar images na milen to backup GIF
-    if not os.path.exists(img1_path) and not os.path.exists(img2_path):
-        st.image("https://media.tenor.com/26BRv0ThflsHCqDrG/giphy.gif")
-    
+    # Image 2: p8.jpg
+    if os.path.exists(img_p8_path):
+        st.image(img_p8_path, use_container_width=True)
+    else:
+        st.warning(f"Image not found: {img_p8_path}")
+
     st.markdown("<h3>Now go check the Gallery page! 👆</h3>", unsafe_allow_html=True)
     
     rain(

@@ -28,8 +28,6 @@ st.markdown("""
         border-radius: 10px;
         border: 2px solid #330000;
         font-weight: bold;
-        font-size: 14px;
-        padding: 5px;
     }
 
     /* Letter Box Style */
@@ -42,18 +40,18 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# 3. TOP NAVIGATION (5 Icons for space saving)
+# 3. TOP NAVIGATION BAR (5 Icons - Matches Home)
 col1, col2, col3, col4, col5 = st.columns(5, gap="small")
 with col1:
-    if st.button("🏠", help="Home", use_container_width=True): st.switch_page("home.py")
+    if st.button("🏠", use_container_width=True): st.switch_page("home.py")
 with col2:
-    if st.button("📸", help="Gallery", use_container_width=True): st.switch_page("pages/1_Gallery.py")
+    if st.button("📸", use_container_width=True): st.switch_page("pages/1_Gallery.py")
 with col3:
-    if st.button("🧐", help="Quiz", use_container_width=True): st.switch_page("pages/2_Quiz.py")
+    if st.button("🧐", use_container_width=True): st.switch_page("pages/2_Quiz.py")
 with col4:
-    if st.button("🎟️", help="Coupons", use_container_width=True): st.switch_page("pages/3_Coupons.py")
+    if st.button("🎟️", use_container_width=True): st.switch_page("pages/3_Coupons.py")
 with col5:
-    if st.button("💌", help="Letters", use_container_width=True): st.switch_page("pages/4_Letter.py")
+    if st.button("💌", use_container_width=True): st.switch_page("pages/4_Letter.py")
 
 st.write("---")
 
@@ -69,7 +67,8 @@ with st.expander("...you miss me 🥺"):
     Remember that distance is just a test to see how far love can travel. 
     Look at this photo and smile for me:
     """)
-    st.image("https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2QzM3Z6cW93aW55eXJ6eXJ6eXJ6eXJ6eXJ6eXJ6eXJ6eSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1cfxvGOPVpf9g3y/giphy.gif")
+    # FIX: Tenor Link (Safe)
+    st.image("https://media.tenor.com/cLS1cfxvGOPVpf9g3y/giphy.gif") 
     st.write("Call me right now. I'm waiting.")
 
 # Letter 2
@@ -81,7 +80,8 @@ with st.expander("...you are mad at me 😡"):
     
     Please forgive me? 🥺
     """)
-    st.image("https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNWR5amF4aGZ4aGZ4aGZ4aGZ4aGZ4aGZ4aGZ4aGZ4aGZ4aSZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/3o7TKr3nzbh5WgCFxe/giphy.gif")
+    # FIX: Tenor Link (Safe)
+    st.image("https://media.tenor.com/3o7TKr3nzbh5WgCFxe/giphy.gif")
 
 # Letter 3
 with st.expander("...you feel sad 😢"):
@@ -92,7 +92,8 @@ with st.expander("...you feel sad 😢"):
     
     Here is a virtual hug:
     """)
-    st.image("https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif")
+    # FIX: Tenor Link (Safe)
+    st.image("https://media.tenor.com/26BRv0ThflsHCqDrG/giphy.gif")
 
 # Letter 4
 with st.expander("...it's our Anniversary 🎉"):

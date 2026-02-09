@@ -119,7 +119,7 @@ elif st.session_state.stage == 2:
     else:
         # Fallback agar tab bhi na mile
         st.error(f"Video not found at: {video_path}")
-        st.image("https://media.tenor.com/26BRv0ThflsHCqDrG/giphy.gif") # Backup GIF
+        st.image("https://media.tenor.com/On7kvXhzml4AAAAj/loading-chud.gif", width=200) # Backup GIF
     
     st.markdown("<h3>Now go check the Gallery page! 👆</h3>", unsafe_allow_html=True)
     
@@ -129,3 +129,4 @@ elif st.session_state.stage == 2:
         falling_speed=5,
         animation_length="infinite",
     )
+

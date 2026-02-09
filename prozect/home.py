@@ -1,6 +1,5 @@
 import streamlit as st
 import os
-import base64  # <--- Video ko encode karne ke liye
 from streamlit_extras.let_it_rain import rain
 
 # ---------------------------------------------------------
@@ -17,8 +16,10 @@ st.set_page_config(
 # 2. PATH SETUP
 # ---------------------------------------------------------
 current_dir = os.path.dirname(os.path.abspath(__file__))
-# Video path set karo
-video_path = os.path.join(current_dir, "vdo3.mp4") # <--- Jo video chalana hai uska naam yahan likho
+
+# Images ka path set kiya (Video hata diya)
+img1_path = os.path.join(current_dir, "p9.jpg")
+img2_path = os.path.join(current_dir, "p7.jpg")
 
 # ---------------------------------------------------------
 # 3. CSS & STYLING
@@ -98,27 +99,23 @@ elif st.session_state.stage == 1:
             st.session_state.no_count += 1
             st.rerun()
 
-# --- STAGE 2: Success (BRAHMASTRA CODE) ---
+# --- STAGE 2: Success (IMAGES FIX) ---
 elif st.session_state.stage == 2:
     st.title("YEAYYY! I KNEW IT! 🎉❤️")
     
-    # Check agar file hai
-    if os.path.exists(video_path):
-        # File ko binary mein padh kar Base64 banayenge
-        with open(video_path, "rb") as f:
-            video_bytes = f.read()
-            base64_vid = base64.b64encode(video_bytes).decode('utf-8')
-            
-        # HTML Player jo browser mein direct chalega (No buffering issues)
-        video_html = f"""
-            <video width="100%" controls autoplay>
-                <source src="data:video/mp4;base64,{base64_vid}" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        """
-        st.markdown(video_html, unsafe_allow_html=True)
-    else:
-        st.error(f"Video file not found at: {video_path}")
+    # Image 1 (P9)
+    if os.path.exists(img1_path):
+        st.image(img1_path, use_container_width=True)
+    
+    # Thoda gap
+    st.write("") 
+
+    # Image 2 (P7)
+    if os.path.exists(img2_path):
+        st.image(img2_path, use_container_width=True)
+
+    # Agar images na milen to backup GIF
+    if not os.path.exists(img1_path) and not os.path.exists(img2_path):
         st.image("https://media.tenor.com/26BRv0ThflsHCqDrG/giphy.gif")
     
     st.markdown("<h3>Now go check the Gallery page! 👆</h3>", unsafe_allow_html=True)

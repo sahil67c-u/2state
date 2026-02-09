@@ -1,4 +1,5 @@
 import streamlit as st
+import os
 from streamlit_extras.let_it_rain import rain
 
 # 1. Page Config
@@ -108,11 +109,17 @@ elif st.session_state.stage == 1:
 elif st.session_state.stage == 2:
     st.title("YEAYYY! I KNEW IT! 🎉❤️")
     
-    try:
-        # Make sure vdo1.mp4 is in the folder!
-        st.video("vdo1.mp4", format="video/mp4", start_time=0) 
-    except:
-        st.error("Could not load video. Check filename.")
+    # MAGIC FIX: File ko sahi jagah dhoondne ka code
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    video_path = os.path.join(current_dir, "vdo3.mp4")
+
+    # Check karega agar video mili ya nahi
+    if os.path.exists(video_path):
+        st.video(video_path, format="video/mp4", start_time=0)
+    else:
+        # Fallback agar tab bhi na mile
+        st.error(f"Video not found at: {video_path}")
+        st.image("https://media.tenor.com/26BRv0ThflsHCqDrG/giphy.gif") # Backup GIF
     
     st.markdown("<h3>Now go check the Gallery page! 👆</h3>", unsafe_allow_html=True)
     

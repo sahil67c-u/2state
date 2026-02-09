@@ -2,9 +2,7 @@ import streamlit as st
 import os
 from streamlit_extras.let_it_rain import rain
 
-# ---------------------------------------------------------
-# 1. PAGE CONFIG
-# ---------------------------------------------------------
+# 1. Page Config
 st.set_page_config(
     page_title="For Chiku ❤️",
     page_icon="💌",
@@ -13,27 +11,35 @@ st.set_page_config(
 )
 
 # ---------------------------------------------------------
-# 2. PATH SETUP (Images dhoondne ke liye)
+# 2. INITIALIZE SESSION STATE (MUST BE AT THE TOP)
 # ---------------------------------------------------------
-# Ye code current folder ka pata lagayega jahan home.py hai
-current_dir = os.path.dirname(os.path.abspath(__file__))
+if 'stage' not in st.session_state:
+    st.session_state.stage = 0
 
-# Direct file names (Kyunki sab same folder mein hai)
-img_p9_path = os.path.join(current_dir, "p9.jpg")
-img_p8_path = os.path.join(current_dir, "p8.jpg")
+if 'no_count' not in st.session_state:
+    st.session_state.no_count = 0
 
 # ---------------------------------------------------------
 # 3. CSS & STYLING
 # ---------------------------------------------------------
 st.markdown("""
     <style>
+    /* Hide the default Streamlit Sidebar */
     [data-testid="stSidebarNav"] {display: none;}
-    .stApp {background-color: #ffe6e6;}
+    
+    /* Pink Background */
+    .stApp {
+        background-color: #ffe6e6;
+    }
+    
+    /* Text Styling */
     h1, h2, h3, p, div, span {
         color: #4a0010 !important;
         font-family: 'Comic Sans MS', cursive, sans-serif;
         font-weight: 800 !important;
     }
+    
+    /* Buttons */
     div.stButton > button {
         background-color: #ff4b4b;
         color: white !important;
@@ -45,35 +51,31 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 # ---------------------------------------------------------
-# 4. NAVIGATION
+# 4. TOP NAVIGATION BAR
 # ---------------------------------------------------------
 col1, col2, col3, col4, col5 = st.columns(5, gap="small")
 with col1:
-    if st.button("🏠", use_container_width=True): st.switch_page("home.py")
+    if st.button("🏠", help="Home", use_container_width=True): st.switch_page("home.py")
 with col2:
-    if st.button("📸", use_container_width=True): st.switch_page("pages/1_Gallery.py")
+    if st.button("📸", help="Gallery", use_container_width=True): st.switch_page("pages/1_Gallery.py")
 with col3:
-    if st.button("🧐", use_container_width=True): st.switch_page("pages/2_Quiz.py")
+    if st.button("🧐", help="Quiz", use_container_width=True): st.switch_page("pages/2_Quiz.py")
 with col4:
-    if st.button("🎟️", use_container_width=True): st.switch_page("pages/3_Coupons.py")
+    if st.button("🎟️", help="Coupons", use_container_width=True): st.switch_page("pages/3_Coupons.py")
 with col5:
-    if st.button("💌", use_container_width=True): st.switch_page("pages/4_Letter.py")
+    if st.button("💌", help="Letters", use_container_width=True): st.switch_page("pages/4_Letter.py")
 
 st.write("---")
-
 # ---------------------------------------------------------
-# 5. PAGE LOGIC
+# 5. PAGE CONTENT (LOGIC)
 # ---------------------------------------------------------
-if 'stage' not in st.session_state:
-    st.session_state.stage = 0
-
-if 'no_count' not in st.session_state:
-    st.session_state.no_count = 0
 
 # --- STAGE 0: Intro ---
 if st.session_state.stage == 0:
     st.title("Hey Chiku! 👋")
-    st.image("https://media.tenor.com/On7kvXhzml4AAAAj/loading-chud.gif", width=200)
+    # Using the direct link that usually works better
+    st.video("vdo3.mp4", format="video/mp4", start_time=0) 
+    
     st.markdown("<h3>I have something really serious to ask you...</h3>", unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns([1,2,1])
@@ -85,7 +87,8 @@ if st.session_state.stage == 0:
 # --- STAGE 1: The Question ---
 elif st.session_state.stage == 1:
     st.title("Okay, here goes nothing... 🫣")
-    st.image("https://media.tenor.com/Mbf0X7eQyWAAAAAj/peach-goma-peach-and-goma.gif", width=200)
+    st.video("vdo2.mp4", format="video/mp4", start_time=0) 
+    
     st.markdown("<h1>WILL YOU BE MY VALENTINE? 🌹</h1>", unsafe_allow_html=True)
     
     col1, col2 = st.columns(2)
@@ -95,30 +98,23 @@ elif st.session_state.stage == 1:
             st.rerun()
     with col2:
         no_texts = ["No", "Are you sure?", "Don't do this 🥺", "I'm gonna cry...", "Just click YES!"]
+        # Cycle through texts
         text_index = min(st.session_state.no_count, len(no_texts)-1)
+        
         if st.button(no_texts[text_index]):
             st.session_state.no_count += 1
             st.rerun()
 
-# --- STAGE 2: Success (NO VIDEO, ONLY IMAGES) ---
+# --- STAGE 2: Success ---
 elif st.session_state.stage == 2:
     st.title("YEAYYY! I KNEW IT! 🎉❤️")
-    st.markdown("### Look at us! 🥰")
     
-    # Image 1: p9.jpg
-    if os.path.exists(img_p9_path):
-        st.image(img_p9_path, use_container_width=True)
-    else:
-        st.warning(f"Image not found: {img_p9_path}") # Debugging ke liye
-
-    st.write("") # Gap
-
-    # Image 2: p8.jpg
-    if os.path.exists(img_p8_path):
-        st.image(img_p8_path, use_container_width=True)
-    else:
-        st.warning(f"Image not found: {img_p8_path}")
-
+    try:
+        # Make sure vdo1.mp4 is in the folder!
+        st.video("vdo1.mp4", format="video/mp4", start_time=0) 
+    except:
+        st.error("Could not load video. Check filename.")
+    
     st.markdown("<h3>Now go check the Gallery page! 👆</h3>", unsafe_allow_html=True)
     
     rain(

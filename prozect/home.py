@@ -1,8 +1,11 @@
 import streamlit as st
 import os
+import base64  # <--- Video ko encode karne ke liye
 from streamlit_extras.let_it_rain import rain
 
+# ---------------------------------------------------------
 # 1. PAGE CONFIG
+# ---------------------------------------------------------
 st.set_page_config(
     page_title="For Chiku ❤️",
     page_icon="💌",
@@ -10,7 +13,16 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# 2. CSS & STYLING
+# ---------------------------------------------------------
+# 2. PATH SETUP
+# ---------------------------------------------------------
+current_dir = os.path.dirname(os.path.abspath(__file__))
+# Video path set karo
+video_path = os.path.join(current_dir, "vdo3.mp4") # <--- Jo video chalana hai uska naam yahan likho
+
+# ---------------------------------------------------------
+# 3. CSS & STYLING
+# ---------------------------------------------------------
 st.markdown("""
     <style>
     [data-testid="stSidebarNav"] {display: none;}
@@ -30,7 +42,9 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# 3. NAVIGATION
+# ---------------------------------------------------------
+# 4. NAVIGATION
+# ---------------------------------------------------------
 col1, col2, col3, col4, col5 = st.columns(5, gap="small")
 with col1:
     if st.button("🏠", use_container_width=True): st.switch_page("home.py")
@@ -45,7 +59,9 @@ with col5:
 
 st.write("---")
 
-# 4. PAGE LOGIC
+# ---------------------------------------------------------
+# 5. PAGE LOGIC
+# ---------------------------------------------------------
 if 'stage' not in st.session_state:
     st.session_state.stage = 0
 
@@ -82,15 +98,28 @@ elif st.session_state.stage == 1:
             st.session_state.no_count += 1
             st.rerun()
 
-# --- STAGE 2: Success (YOUTUBE FIX) ---
+# --- STAGE 2: Success (BRAHMASTRA CODE) ---
 elif st.session_state.stage == 2:
     st.title("YEAYYY! I KNEW IT! 🎉❤️")
     
-    # YOUTUBE LINK YAHAN DAALNA 👇
-    # (Abhi ke liye maine ek sample cute cat video daal diya hai check karne ke liye)
-    youtube_url = "https://www.youtube.com/watch?v=2Vv-BfVoq4g" 
-    
-    st.video(youtube_url)
+    # Check agar file hai
+    if os.path.exists(video_path):
+        # File ko binary mein padh kar Base64 banayenge
+        with open(video_path, "rb") as f:
+            video_bytes = f.read()
+            base64_vid = base64.b64encode(video_bytes).decode('utf-8')
+            
+        # HTML Player jo browser mein direct chalega (No buffering issues)
+        video_html = f"""
+            <video width="100%" controls autoplay>
+                <source src="data:video/mp4;base64,{base64_vid}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        """
+        st.markdown(video_html, unsafe_allow_html=True)
+    else:
+        st.error(f"Video file not found at: {video_path}")
+        st.image("https://media.tenor.com/26BRv0ThflsHCqDrG/giphy.gif")
     
     st.markdown("<h3>Now go check the Gallery page! 👆</h3>", unsafe_allow_html=True)
     
